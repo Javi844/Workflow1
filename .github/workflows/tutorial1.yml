@@ -6,16 +6,33 @@ jobs:
     name: job1
     runs-on: ubuntu-latest
     steps:
-    - name: step1
-      run: echo "hello from job1"
+      - name: step1
+        run: echo "hello from job1"
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
   job2:
     name: job2
     runs-on: windows-latest
     steps:
-    - name: step2
-      run: echo "hello from job2"
+      - name: step2
+        run: echo "hello from job2"
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
   job3:
     runs-on: ubuntu-latest
     steps:
-    - name: step3
-      run: echo "hello from job3"
+      - name: step3
+        run: echo "hello from job3"
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+  job4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: step4
+        run: echo "I am job4"
