@@ -2,7 +2,7 @@ name: tutorialdev
 on:
   push:
     branches:
-      -dev
+      - dev
 
 jobs:
   job1:
