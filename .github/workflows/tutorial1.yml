@@ -16,6 +16,10 @@ jobs:
           CURRENT_DATE=$(date +'%Y-%m-%d')
           echo "date=$CURRENT_DATE" >> $GITHUB_OUTPUT
           echo "Job1 date: $CURRENT_DATE"
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
 
   job2:
     runs-on: windows-latest
