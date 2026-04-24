@@ -3,36 +3,42 @@ on: push
 
 jobs:
   job1:
-    name: job1
     runs-on: ubuntu-latest
+    outputs:
+      current_date: ${{ steps.date.outputs.date }}
     steps:
       - name: step1
         run: echo "hello from job1"
+
       - name: Get current date
         id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+        run: |
+          CURRENT_DATE=$(date +'%Y-%m-%d')
+          echo "date=$CURRENT_DATE" >> $GITHUB_OUTPUT
+          echo "Job1 date: $CURRENT_DATE"
 
   job2:
-    name: job2
     runs-on: windows-latest
+    outputs:
+      current_date: ${{ steps.date.outputs.date }}
     steps:
       - name: step2
         run: echo "hello from job2"
-      - name: Get current date
-        id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-  job3:
-    runs-on: ubuntu-latest
-    steps:
-      - name: step3
-        run: echo "hello from job3"
       - name: Get current date
         id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+        shell: bash
+        run: |
+          CURRENT_DATE=$(date +'%Y-%m-%d')
+          echo "date=$CURRENT_DATE" >> $GITHUB_OUTPUT
+          echo "Job2 date: $CURRENT_DATE"
 
   job4:
     runs-on: ubuntu-latest
+    needs: [job1, job2]
     steps:
       - name: step4
-        run: echo "I am job4"
+        run: |
+          echo "I am job4"
+          echo "Job1 date: ${{ needs.job1.outputs.current_date }}"
+          echo "Job2 date: ${{ needs.job2.outputs.current_date }}"
