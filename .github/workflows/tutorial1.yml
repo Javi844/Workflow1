@@ -21,7 +21,8 @@ jobs:
         with:
           python-version: '3.12'
       - name: python version
-        run: pyhton -V
+        run:
+          pyhton -V
 
   job2:
     runs-on: windows-latest
